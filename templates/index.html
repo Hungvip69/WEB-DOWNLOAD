@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kho tải file công khai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="floating-logos" aria-hidden="true">
+        <span class="logo-chip logo-chip-a"></span>
+        <span class="logo-chip logo-chip-b"></span>
+        <span class="logo-chip logo-chip-c"></span>
+        <span class="logo-chip logo-chip-d"></span>
+        <span class="logo-chip logo-chip-e"></span>
+        <span class="logo-chip logo-chip-f"></span>
+    </div>
+    <div class="floating-icons" aria-hidden="true">
+        <span class="icon-chip icon-chip-a"></span>
+        <span class="icon-chip icon-chip-b"></span>
+        <span class="icon-chip icon-chip-c"></span>
+        <span class="icon-chip icon-chip-d"></span>
+        <span class="icon-chip icon-chip-e"></span>
+        <span class="icon-chip icon-chip-f"></span>
+        <span class="icon-chip icon-chip-g"></span>
+        <span class="icon-chip icon-chip-h"></span>
+        <span class="icon-chip icon-chip-i"></span>
+    </div>
+
+    <main class="layout">
+        <section class="hero">
+            <p class="hero-tag">PUBLIC DOWNLOAD PORTAL</p>
+            <h1>WEB TẢI HACK ROBLOX</h1>
+            <p class="hero-description">
+                Tất cả hack roblox đều được cập nhật thường xuyên bạn có thể tải xuống ngay tại đây.
+            </p>
+            <div class="hero-actions">
+                <button id="refresh-btn" type="button">Làm mới danh sách</button>
+                <button id="theme-toggle" type="button" class="ghost-btn">🌙 Tối</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-head">
+                <h2>Danh sách file</h2>
+                <p id="status-text">Đang tải dữ liệu...</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên file</th>
+                            <th>Dung lượng</th>
+                            <th>Cập nhật</th>
+                            <th>Lượt tải</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="file-table-body"></tbody>
+                </table>
+            </div>
+            <p class="empty-state" id="empty-state" hidden>
+                Hiện chưa có file nào trong thư mục chia sẻ.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        window.__INITIAL_FILES__ = {{ files | tojson }};
+    </script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Matrix style decorative code rain">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e9a73" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#0a6f55" stop-opacity="0.16"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1200" fill="none"/>
+
+  <g fill="#0d765a" fill-opacity="0.46" font-family="monospace" font-size="22">
+    <text x="80" y="70">0101011001110010010011011101011010101</text>
+    <text x="170" y="180">root@node: /opt/bin/run --safe false</text>
+    <text x="260" y="300">1010010111001010110100101010110100110</text>
+    <text x="90" y="430">ssh tunnel established :: 443 8080 9443</text>
+    <text x="310" y="560">0111000100011110010101101011110001010</text>
+    <text x="120" y="710">packet payload encrypted with rotating key</text>
+    <text x="260" y="860">0010010101100101011010100100110100111</text>
+    <text x="140" y="1010">trace bypass | ghost process | daemon up</text>
+    <text x="280" y="1140">1001110100010110101010011010100010110</text>
+  </g>
+
+  <g stroke="url(#fade)" stroke-width="2" stroke-linecap="round">
+    <line x1="65" y1="0" x2="65" y2="1200"/>
+    <line x1="180" y1="0" x2="180" y2="1200"/>
+    <line x1="295" y1="0" x2="295" y2="1200"/>
+    <line x1="410" y1="0" x2="410" y2="1200"/>
+    <line x1="525" y1="0" x2="525" y2="1200"/>
+    <line x1="640" y1="0" x2="640" y2="1200"/>
+    <line x1="755" y1="0" x2="755" y2="1200"/>
+    <line x1="870" y1="0" x2="870" y2="1200"/>
+    <line x1="985" y1="0" x2="985" y2="1200"/>
+    <line x1="1100" y1="0" x2="1100" y2="1200"/>
+  </g>
+</svg>

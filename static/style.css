@@ -1,0 +1,523 @@
+:root {
+    --bg-top: #fff4d8;
+    --bg-bottom: #d6f0e7;
+    --bg-blob-1: rgba(255, 173, 96, 0.35);
+    --bg-blob-2: rgba(15, 157, 121, 0.28);
+    --bg-code-opacity: 0.52;
+    --bg-mask-opacity: 0.44;
+    --bg-code-blend-mode: multiply;
+    --bg-code-filter: hue-rotate(-12deg) saturate(1.75) contrast(1.55) brightness(0.72);
+    --brand-logo-url: url("https://upload.wikimedia.org/wikipedia/commons/7/70/Roblox_Corporation_2025_logo.svg");
+    --brand-logo-filter: saturate(1.15) contrast(1.05) brightness(0.95);
+    --brand-logo-blend-mode: normal;
+    --brand-logo-tilt: -6deg;
+    --logo-chip-opacity: 0.2;
+    --logo-chip-filter: saturate(1.1) contrast(1.02) brightness(0.9);
+    --icon-chip-opacity: 0.16;
+    --icon-chip-filter: saturate(1.04) contrast(1.04) brightness(0.9);
+    --icon-chip-blend: multiply;
+    --card-bg: rgba(255, 255, 255, 0.78);
+    --text-main: #122b24;
+    --text-sub: #456156;
+    --line: rgba(18, 43, 36, 0.16);
+    --highlight: #0f9d79;
+    --highlight-deep: #0b6f56;
+    --shadow: rgba(15, 61, 48, 0.24);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Sora", "Segoe UI", sans-serif;
+    color: var(--text-main);
+    background:
+        radial-gradient(circle at 10% 10%, var(--bg-blob-1), transparent 40%),
+        radial-gradient(circle at 90% 90%, var(--bg-blob-2), transparent 45%),
+        linear-gradient(150deg, var(--bg-top), var(--bg-bottom));
+    padding: 52px 26px;
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+}
+
+body.dark {
+    --bg-top: #071a1f;
+    --bg-bottom: #102a30;
+    --bg-blob-1: rgba(0, 184, 148, 0.28);
+    --bg-blob-2: rgba(32, 143, 235, 0.24);
+    --bg-code-opacity: 0.2;
+    --bg-mask-opacity: 0.34;
+    --bg-code-blend-mode: screen;
+    --bg-code-filter: hue-rotate(0deg) saturate(1.2) contrast(1.08) brightness(1.08);
+    --brand-logo-filter: saturate(1.08) contrast(1.08) brightness(1.02);
+    --brand-logo-blend-mode: normal;
+    --brand-logo-tilt: -5deg;
+    --logo-chip-opacity: 0.24;
+    --logo-chip-filter: saturate(1.12) contrast(1.06) brightness(1.03);
+    --icon-chip-opacity: 0.2;
+    --icon-chip-filter: saturate(1.08) contrast(1.08) brightness(1.02);
+    --icon-chip-blend: normal;
+    --card-bg: rgba(6, 24, 30, 0.75);
+    --text-main: #e5f8f3;
+    --text-sub: #a8cbc3;
+    --line: rgba(168, 203, 195, 0.2);
+    --highlight: #1db388;
+    --highlight-deep: #12745a;
+    --shadow: rgba(0, 0, 0, 0.4);
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    inset: 0;
+    background: url("/static/assets/matrix-rain.svg") center center / cover no-repeat;
+    opacity: var(--bg-code-opacity);
+    mix-blend-mode: var(--bg-code-blend-mode);
+    filter: var(--bg-code-filter);
+    animation: code-pan 26s linear infinite;
+}
+
+body::after {
+    width: min(76vw, 1360px);
+    aspect-ratio: 16 / 5;
+    right: -148px;
+    bottom: 22px;
+    background: var(--brand-logo-url) center center / contain no-repeat;
+    opacity: var(--bg-mask-opacity);
+    filter: var(--brand-logo-filter) drop-shadow(0 24px 40px rgba(1, 8, 12, 0.3));
+    mix-blend-mode: var(--brand-logo-blend-mode);
+    transform-origin: 70% 70%;
+    animation: logo-float 8s ease-in-out infinite;
+}
+
+.floating-logos {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-icons {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.logo-chip {
+    position: absolute;
+    display: block;
+    background: var(--brand-logo-url) center center / contain no-repeat;
+    opacity: var(--logo-chip-opacity);
+    filter: var(--logo-chip-filter) drop-shadow(0 12px 24px rgba(1, 8, 12, 0.22));
+    mix-blend-mode: var(--brand-logo-blend-mode);
+    animation: logo-chip-float 11s ease-in-out infinite;
+}
+
+.logo-chip-a {
+    width: min(20vw, 320px);
+    aspect-ratio: 16 / 5;
+    top: 7%;
+    left: 2.5%;
+    transform: rotate(-9deg);
+    animation-delay: -0.8s;
+}
+
+.logo-chip-b {
+    width: min(18vw, 280px);
+    aspect-ratio: 16 / 5;
+    top: 13%;
+    right: 16%;
+    transform: rotate(11deg);
+    animation-delay: -2.3s;
+}
+
+.logo-chip-c {
+    width: min(14vw, 230px);
+    aspect-ratio: 16 / 5;
+    top: 44%;
+    left: 4.5%;
+    transform: rotate(-7deg);
+    animation-delay: -4.1s;
+}
+
+.logo-chip-d {
+    width: min(19vw, 300px);
+    aspect-ratio: 16 / 5;
+    top: 53%;
+    right: 3%;
+    transform: rotate(8deg);
+    animation-delay: -5.8s;
+}
+
+.logo-chip-e {
+    width: min(15vw, 240px);
+    aspect-ratio: 16 / 5;
+    bottom: 18%;
+    left: 22%;
+    transform: rotate(-13deg);
+    animation-delay: -3.2s;
+}
+
+.logo-chip-f {
+    width: min(16vw, 260px);
+    aspect-ratio: 16 / 5;
+    bottom: 8%;
+    right: 26%;
+    transform: rotate(10deg);
+    animation-delay: -6.4s;
+}
+
+.icon-chip {
+    position: absolute;
+    display: block;
+    width: 116px;
+    aspect-ratio: 1 / 1;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: var(--icon-chip-opacity);
+    filter: var(--icon-chip-filter) drop-shadow(0 6px 14px rgba(1, 8, 12, 0.16));
+    mix-blend-mode: var(--icon-chip-blend);
+    animation: icon-drift 13s ease-in-out infinite;
+}
+
+.icon-chip-a { top: 18%; right: 1%; background-image: url("/static/assets/icons/bostur.png"); animation-delay: -0.7s; }
+.icon-chip-b { top: 30%; left: 27%; background-image: url("/static/assets/icons/darkflux.png"); animation-delay: -3.9s; }
+.icon-chip-c { top: 58%; right: 19%; background-image: url("/static/assets/icons/ronix.png"); animation-delay: -5.1s; }
+.icon-chip-d { top: 71%; left: 6%; background-image: url("/static/assets/icons/salo.png"); animation-delay: -2.4s; }
+.icon-chip-e { bottom: 3%; right: 4%; background-image: url("/static/assets/icons/seraphix.png"); animation-delay: -1.9s; }
+.icon-chip-f { top: 6%; right: 37%; background-image: url("/static/assets/icons/solara.png"); animation-delay: -6.5s; }
+.icon-chip-g { bottom: 24%; right: 38%; background-image: url("/static/assets/icons/TNG.png"); animation-delay: -4.2s; }
+.icon-chip-h { bottom: 33%; left: 55%; background-image: url("/static/assets/icons/velocity.png"); animation-delay: -8.1s; }
+.icon-chip-i { top: 46%; left: 50%; background-image: url("/static/assets/icons/xeno.png"); animation-delay: -7.2s; }
+
+.layout {
+    width: min(1380px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero,
+.card {
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 24px 45px var(--shadow);
+    animation: rise-in 0.45s ease-out both;
+}
+
+.hero {
+    padding: 38px 34px;
+    align-self: start;
+}
+
+.hero-tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    margin: 0 0 12px;
+    color: var(--highlight-deep);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(40px, 4.6vw, 60px);
+    line-height: 1.05;
+}
+
+.hero-description {
+    margin: 14px 0 22px;
+    font-size: 18px;
+    color: var(--text-sub);
+    line-height: 1.65;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--card-bg) 78%, transparent);
+}
+
+#refresh-btn {
+    border: none;
+    padding: 14px 22px;
+    border-radius: 999px;
+    color: #ffffff;
+    background: linear-gradient(125deg, var(--highlight), var(--highlight-deep));
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.18s ease;
+}
+
+#refresh-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(15, 157, 121, 0.33);
+}
+
+#refresh-btn:active {
+    transform: translateY(0);
+}
+
+.ghost-btn {
+    border: 1px solid var(--line);
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 16px;
+    color: var(--text-main);
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ghost-btn:hover {
+    background-color: rgba(148, 163, 184, 0.15);
+    border-color: rgba(15, 157, 121, 0.45);
+}
+
+.card {
+    padding: 24px 24px 18px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+#status-text {
+    margin: 0;
+    color: var(--text-sub);
+    font-size: 16px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 860px;
+}
+
+th,
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+}
+
+th {
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    color: var(--text-sub);
+}
+
+td {
+    font-size: 16px;
+}
+
+td code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+}
+
+.download-link {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 9px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--highlight);
+    transition: background-color 0.2s ease;
+}
+
+.download-link:hover {
+    background-color: var(--highlight-deep);
+}
+
+.empty-state {
+    color: var(--text-sub);
+    margin: 14px 4px 6px;
+    font-size: 16px;
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logo-float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(var(--brand-logo-tilt));
+    }
+    50% {
+        transform: translateY(-8px) rotate(calc(var(--brand-logo-tilt) - 1.3deg));
+    }
+}
+
+@keyframes logo-chip-float {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -7px;
+    }
+}
+
+@keyframes icon-drift {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(4deg);
+    }
+}
+
+@keyframes code-pan {
+    from {
+        background-position: center 0;
+    }
+    to {
+        background-position: center 130px;
+    }
+}
+
+@media (max-width: 920px) {
+    body {
+        padding: 26px 14px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .hero,
+    .card {
+        border-radius: 20px;
+    }
+
+    .hero {
+        padding: 24px 18px;
+    }
+
+    .hero h1 {
+        font-size: clamp(30px, 8vw, 44px);
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    #refresh-btn,
+    .ghost-btn {
+        padding: 11px 16px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 16px 14px 12px;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+    #status-text {
+        font-size: 14px;
+    }
+
+    table {
+        min-width: 620px;
+    }
+
+    body::after {
+        width: min(86vw, 580px);
+        right: -102px;
+        bottom: 34px;
+        opacity: calc(var(--bg-mask-opacity) - 0.1);
+    }
+
+    .logo-chip-b,
+    .logo-chip-d,
+    .logo-chip-f {
+        display: none;
+    }
+
+    .icon-chip {
+        width: 72px;
+    }
+
+    .icon-chip-b,
+    .icon-chip-c,
+    .icon-chip-f,
+    .icon-chip-h,
+    .icon-chip-i {
+        display: none;
+    }
+
+    .icon-chip-a { top: 16%; right: 4%; }
+    .icon-chip-d { top: 68%; left: 2%; }
+    .icon-chip-e { bottom: 8%; right: 10%; }
+    .icon-chip-g { bottom: 30%; right: 7%; }
+
+    .logo-chip-a {
+        width: min(36vw, 210px);
+        top: 8%;
+        left: -2%;
+    }
+
+    .logo-chip-c {
+        width: min(32vw, 190px);
+        top: 46%;
+        left: -1%;
+    }
+
+    .logo-chip-e {
+        width: min(34vw, 210px);
+        left: 6%;
+        bottom: 12%;
+    }
+}

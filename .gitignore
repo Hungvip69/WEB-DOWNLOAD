@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.vendor/
+.wheels/
+*.pyc
+*.pyo
+*.db
+data/*.db
+files/*
+!files/.gitkeep
+!data/.gitkeep
