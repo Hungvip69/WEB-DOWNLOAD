@@ -10,3 +10,4 @@ data/*.db
 files/*
 !files/.gitkeep
 !data/.gitkeep
+github-recovery-codes.txt

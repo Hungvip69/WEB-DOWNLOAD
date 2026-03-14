@@ -10,9 +10,17 @@ services:
       mountPath: /var/data
       sizeGB: 1
     envVars:
-      - key: FILES_DIR
-        value: /var/data/files
       - key: DB_PATH
         value: /var/data/downloads.db
       - key: COUNT_DEDUPE_SECONDS
+        value: "60"
+      - key: GITHUB_OWNER
+        value: Hungvip69
+      - key: GITHUB_REPO
+        value: WEB-DOWNLOAD
+      - key: GITHUB_RELEASE_TAG
+        value: files
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_CACHE_SECONDS
         value: "60"

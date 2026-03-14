@@ -1,65 +1,70 @@
 # File Share Web
 
-Web FastAPI cho phép mọi người truy cập và tải file công khai.
+Web FastAPI de moi nguoi truy cap va tai file cong khai. Danh sach file duoc doc tu GitHub Releases (tag co dinh).
 
-## Tính năng
+## Tinh nang
 
-- `GET /`: giao diện danh sách file.
-- `GET /api/files`: API JSON chứa metadata file và lượt tải.
-- `GET /download/{filename}`: tải file và tự tăng `download_count`.
-- Bảo vệ path traversal (`../`, `\`, đường dẫn ngoài thư mục gốc).
-- Lưu lượt tải cục bộ bằng SQLite.
+- `GET /`: giao dien danh sach file.
+- `GET /api/files`: API JSON chua metadata file + warning.
+- `GET /download/{file_id}`: tang `download_count`, sau do redirect sang link tai cua GitHub asset.
+- Chong dem trung request tai trong mot khoang thoi gian ngan.
+- Luu luot tai cuc bo bang SQLite.
 
-## Yêu cầu
+## Yeu cau
 
 - Python 3.10+
+- Repo release public hoac private co token.
 
-## Chạy local
+## Chay local
 
 ```bash
 cd file-share-web
 python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+.venv\\Scripts\\python.exe -m pip install -r requirements.txt
 ```
-
-### Biến môi trường
-
-- `FILES_DIR`: thư mục chứa file tải về (mặc định: `files`)
-- `DB_PATH`: đường dẫn SQLite (mặc định: `data/downloads.db`)
-- `COUNT_DEDUPE_SECONDS`: thời gian chống đếm trùng cho mọi request tải lặp từ cùng client (mặc định: `60`)
-- `PORT`: cổng chạy app (mặc định: `8000`)
-
-Ví dụ PowerShell:
 
 ```powershell
-$env:FILES_DIR="files"
+$env:GITHUB_OWNER="Hungvip69"
+$env:GITHUB_REPO="WEB-DOWNLOAD"
+$env:GITHUB_RELEASE_TAG="v1.0.0"
+$env:GITHUB_TOKEN=""   # de trong neu repo public
+$env:GITHUB_CACHE_SECONDS="60"
 $env:DB_PATH="data/downloads.db"
 $env:COUNT_DEDUPE_SECONDS="60"
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+.\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-## Vận hành
+## Bien moi truong
 
-- Thêm file: chép trực tiếp vào thư mục `FILES_DIR`.
-- Xóa file: xóa khỏi `FILES_DIR` (counter vẫn giữ trong DB, sẽ tự bỏ khỏi danh sách khi file không còn).
-- Kiểm tra URL public: mở route `/` sau deploy.
+- `GITHUB_OWNER`: owner repo (mac dinh `Hungvip69`).
+- `GITHUB_REPO`: ten repo (mac dinh `WEB-DOWNLOAD`).
+- `GITHUB_RELEASE_TAG`: tag release can doc (bat buoc).
+- `GITHUB_TOKEN`: GitHub PAT (optional, can cho repo private/ tang rate limit).
+- `GITHUB_CACHE_SECONDS`: TTL cache danh sach asset (mac dinh `60`).
+- `DB_PATH`: duong dan SQLite (mac dinh `data/downloads.db`).
+- `COUNT_DEDUPE_SECONDS`: cua so chong dem trung (mac dinh `60`).
+- `PORT`: cong app (mac dinh `8000`).
+
+## Van hanh
+
+- Upload file len release asset theo tag da chon.
+- Moi lan thay doi file, cap nhat release tag tuong ung.
+- Kiem tra URL public bang route `/` sau deploy.
 
 ## Deploy Render
 
-Project có sẵn `render.yaml`:
+Project co san `render.yaml`:
 
 - Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-- `FILES_DIR=/var/data/files`
-- `DB_PATH=/var/data/downloads.db`
-- Gắn persistent disk tại `/var/data` để giữ file + DB qua các lần deploy.
-
-Lưu ý: nếu không có persistent disk, dữ liệu file và lượt tải có thể mất khi redeploy.
+- Bien can set toi thieu:
+  - `GITHUB_RELEASE_TAG`
+  - `GITHUB_TOKEN` (neu repo private)
+  - `DB_PATH=/var/data/downloads.db`
+- Nen gan persistent disk tai `/var/data` de giu SQLite counter qua cac lan deploy.
 
 ## Test
 
 ```bash
 cd file-share-web
-pytest -q
+python -m pytest -q
 ```

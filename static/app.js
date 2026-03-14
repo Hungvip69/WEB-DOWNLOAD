@@ -62,7 +62,11 @@ async function loadFiles() {
 
         const files = payload.files || [];
         renderRows(files);
-        statusText.textContent = `Đã cập nhật lúc ${new Date().toLocaleTimeString("vi-VN")}`;
+        if (payload.warning) {
+            statusText.textContent = payload.warning;
+        } else {
+            statusText.textContent = `Đã cập nhật lúc ${new Date().toLocaleTimeString("vi-VN")}`;
+        }
     } catch (error) {
         statusText.textContent = "Lỗi tải dữ liệu";
         console.error(error);
